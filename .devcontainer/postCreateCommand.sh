@@ -21,8 +21,8 @@ uv sync --extra dev
 if [ -e $(dirname $0)/_temp.token ]; then
     echo "$PREFIX setting up GitHub CLI"
     $(dirname $0)/gh-login.sh postcreate
-    echo "$PREFIX Installing the techcollective/gh-tt gh cli extension"
-    gh extension install thetechcollective/gh-tt
+    echo "$PREFIX Installing the devx-cafe/gh-tt gh cli extension"
+    gh extension install devx-cafe/gh-tt
     echo "$PREFIX Installing the gh aliases"    
     gh alias import .gh_alias.yml --clobber
 

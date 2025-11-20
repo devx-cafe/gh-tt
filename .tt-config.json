@@ -1,11 +1,11 @@
 {
     "project": {
-        "owner": "thetechcollective",
-        "number": 12
+        "owner": "devx-cafe",
+        "number": 1
     },
     "workon": {
         "default_type_labels": {
-            "title": "type: adhoc",
+            "title": "type: ad hoc",
             "issue": "type: development"
         }
     },

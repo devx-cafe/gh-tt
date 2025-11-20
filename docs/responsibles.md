@@ -44,7 +44,7 @@ A `RESPONSIBLES` file can contain:
 
 Each line has the following format:
 
-```
+```shell
 <file-pattern> <owner1> [<owner2> ... <ownerN>]
 ```
 
@@ -75,7 +75,7 @@ The simplified (but complete) breakdown of the glob patterns is as follows:
 
 Example file tree:
 
-```
+```ini
 project/
 ├── RESPONSIBLES
 ├── file1.txt
@@ -88,7 +88,7 @@ project/
 
 RESPONSIBLES:
 
-```
+```shell
 *.txt @lakruzz
 dir1/* @albertbanke @lakruzz
 ```
@@ -103,7 +103,7 @@ Since `*` doesn't descend into directories, `*.txt` only matches files in the re
 
 To match any `.txt` file across directory boundaries (which may have been the intended semantics of the first glob), you would use the glob:
 
-```
+```shell
 **/*.txt
 ```
 

@@ -1,6 +1,7 @@
 # A new perspective
 
-### Core concept: Issue branch
+## Core concept: Issue branch
+
 We work _issue_ branches defined as follows:
 
 - [x] Must come off of `main`
@@ -16,7 +17,8 @@ gitGraph
 ```
 
 ### Workon
-When an issue is worked on 
+
+When an issue is worked on
 
 - [x] An existing branch that matches the definition of an _issue branch_ must be reused if it exists either locally or remote
 - [x] or else created

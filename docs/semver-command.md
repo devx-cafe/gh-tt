@@ -10,7 +10,7 @@ separators:
 reveal: https://reveals.thetechcollective.dev/markdownloader/?owner=thetechcollective&repo=gh-tt&file=docs/semver-command.md
 ---
 
-# Semantic Versioning with gh-tt
+## Semantic Versioning with gh-tt
 
 A guide to using the `semver` command in gh-tt
 
@@ -52,7 +52,7 @@ gh tt semver note
 ---
 ---
 
-# Basic Commands
+## Basic Commands
 
 ---
 
@@ -113,7 +113,7 @@ The --no-run flag is very helpful when you want to check what would happen witho
 ---
 ---
 
-# Working with Prereleases
+## Working with Prereleases
 
 ---
 
@@ -154,7 +154,7 @@ $ gh tt semver bump --build --no-sha
 ---
 ---
 
-# Release Notes
+## Release Notes
 
 ---
 
@@ -191,7 +191,7 @@ $ gh tt semver note --from v1.1.0 --to v1.2.0
 ---
 ---
 
-# Complete Workflows
+## Complete Workflows
 
 ---
 
@@ -280,7 +280,7 @@ $ git prerelease temp/release_note.md
 ---
 ---
 
-# Advanced Usage
+## Advanced Usage
 
 ---
 
@@ -307,7 +307,7 @@ $ gh tt semver note --help
 For debugging or learning purposes, add the verbose flag:
 
 ```sh
-$ gh tt semver -v bump --minor
+gh tt semver -v bump --minor
 ```
 
 This will print detailed information about what's happening behind the scenes.
@@ -321,7 +321,7 @@ This will print detailed information about what's happening behind the scenes.
 View all semver-compliant tags in the repository:
 
 ```sh
-$ gh tt semver list
+gh tt semver list
 ```
 
 <!-- .element: style="font-size:30px" -->

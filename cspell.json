@@ -20,17 +20,20 @@
         "**/LICENSE"
     ],
     "words": [
-        "lakruzz",
         "albertbanke",
+        "codeowners",
+        "devcontainer",
+        "devcontainers",
+        "devx",
+        "lakruzz",
         "ravvnen",
+        "responsibles",
+        "SMED",
+        "squezeed",
+        "takt",
         "thetechcollective",
         "workon",
-        "wrapup",
-        "responsibles",
-        "codeowners",
-        "squezeed",
-        "devcontainer",
-        "devcontainers"
+        "wrapup"
     ],
     "ignoreWords": [
         "cspell",

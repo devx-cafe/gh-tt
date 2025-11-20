@@ -26,7 +26,7 @@ def tt_parse(args=None):
             the GitHub CLI tool `gh` to interact with GitHub and therefore it's provided as a gh extension. 
             GitHub Projects integration is supported. It enables issues to automatically 
             propagate through the columns in the (kanban) board. Please consult the README.md file 
-            in 'thetechcollective/gh-tt' for more information on how to enable this feature 
+            in 'devx-cafe/gh-tt' for more information on how to enable this feature 
             - and many more neat tricks.  
             """,)
 
@@ -61,7 +61,7 @@ def tt_parse(args=None):
             Squeezes the issue branch into one commit and pushes it to the remote on separate "ready/*" branch.
             A seperate workflow should be defined for ready branches. The command takes no parameters.
             Policies for the delivery can be set in the configuration file '.tt-config.json'. Consult the README
-            in 'thetechcollective/gh-tt' for details.
+            in 'devx-cafe/gh-tt' for details.
             """)
     
     #Add the responsibles subcommand

@@ -11,6 +11,7 @@ This workflow is opinionated and tailored for teams who value a streamlined, Git
 👉 **Pristine Main:** The `main` branch is always _shippable_ and _pristine_. Only commits that pass the `pre-deliver` quality gate are allowed, and only fast-forward merges are permitted.<br/>
 👉 **Squashed Commits:** All commits on development branches are squashed into a single commit, which is then pushed as a _ready_ branch (`ready/**`).<br/>
 👉 **Five-Tier Automated Testing:**  
+
 1. Issue branches (`[0-9]-**`) trigger a `pre-deliver` workflow for internal status checks.
 2. `ready/**` branches trigger a `ready` workflow. If all checks pass, the branch is automatically merged to `main`.
 3. Commits on `main` are deployed to the `dev` environment and tested. Passing commits are labeled as _release candidates_ (`<major>.<minor>.<sequence>rc`).
@@ -19,13 +20,12 @@ This workflow is opinionated and tailored for teams who value a streamlined, Git
 
 👉 **Mentorship Over Pull Requests:** Instead of pull requests, we use a [`RESPONSIBLES`](responsibles.md) file (similar to `CODEOWNERS`). If a commit affects files with assigned responsibles, those individuals are mentioned on the issue to review or assist. This trust-based mentorship model replaces traditional quality gates.
 
-The `gh` extension `thetechcollective/gh-tt` is designed to support this workflow, with three core subcommands: `workon`, `wrapup`, and `deliver`, which manage the branching strategy.
+The `gh` extension `devx-cafe/gh-tt` is designed to support this workflow, with three core subcommands: `workon`, `wrapup`, and `deliver`, which manage the branching strategy.
 
 Additional supporting tools include:
 
 - [`thetechcollective/gh-rotator`](/thetechcollective/gh-rotator): Orchestrates individually releasable components (repos) into a composite product that rotates automatically when any part is updated.
 - [`thetechcollective/gh-downstream`](/thetechcollective/gh-downstream): Reports lead times in our kanban board.
-- [`lakruzz/semver`](/lakruzz/gh-semver): Bumps semantic version labels for both release candidates and production releases.
 
 ---
 
@@ -57,7 +57,6 @@ gh tt workon -i "$issue_number"
 ```
 
 All `gh tt` commands support `--verbose` for detailed output and `--help` for usage information:
-
 
 ---
 

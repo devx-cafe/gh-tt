@@ -10,10 +10,10 @@ Only summarize on the accumulated change set in the branch. Do not dive into - o
 The purpose of the summary is to help my future self and current team mates to recall and understand the purpose of - and rationale behind - the changes without needing to read through all the code or commit messages.
 
 Workflow for efficient summary creation and posting:
+
 1. Extract issue number directly from branch name with a single command (no need for multiple tool calls)
 2. Create the summary file directly without asking for confirmation or explaining each step
 3. Post the comment using the `--body-file` flag without excessive explanation
 4. Confirm success with just the URL of the posted comment
 
 This streamlined process should minimize back-and-forth exchanges and unnecessary explanation of each step.
-

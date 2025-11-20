@@ -36,11 +36,12 @@ jobs:
     permissions:
       statuses: write
       contents: read
-    uses: thetechcollective/workflows/.github/workflows/doing_mark_pending.yaml@stable
+    uses: lakruzz/workflows/.github/workflows/mark_pending.yml@stable
     with:
       statuses: |
-        Ruff
-        Cspell
+        Ruff Check
+        Cspell Check
+        Markdown Linting
         Property-based testing - Python 3.11
         Property-based testing - Python 3.12
         Property-based testing - Python 3.13
@@ -54,7 +55,7 @@ jobs:
     permissions:
       statuses: write
       contents: read
-    uses: thetechcollective/workflows/.github/workflows/checking_python_pytest_matrix.yaml@stable
+    uses: lakruzz/workflows/.github/workflows/pytest_matrix.yml@stable
     with:
       context: Unit testing w/ coverage
       pytest_arguments: "--cov=. --cov-config=.coveragerc -m unittest"
@@ -66,7 +67,7 @@ jobs:
     permissions: 
       statuses: write
       contents: read
-    uses: thetechcollective/workflows/.github/workflows/checking_python_pytest_matrix.yaml@stable
+    uses: lakruzz/workflows/.github/workflows/pytest_matrix.yml@stable
     with:
       context: Property-based testing
       pytest_arguments: "-m hypothesis --hypothesis-profile=1000"
@@ -78,9 +79,9 @@ jobs:
     permissions:
       statuses: write
       contents: read
-    uses: thetechcollective/workflows/.github/workflows/checking_python_ruff_lint.yaml@stable
+    uses: lakruzz/workflows/.github/workflows/ruff_check.yml@stable
     with:
-      context: Ruff
+      context: Ruff Check
 
   cspel_check:
     name: Spelling
@@ -88,6 +89,16 @@ jobs:
     permissions:
       statuses: write
       contents: read
-    uses: thetechcollective/workflows/.github/workflows/checking_cspell_check.yaml@stable
+    uses: lakruzz/workflows/.github/workflows/cspell_check.yml@stable
     with:
-      context: Cspell
+      context: Cspell Check
+
+  markdown_linter:
+    name: Linting
+    permissions:
+      statuses: write
+      contents: read
+    uses: lakruzz/workflows/.github/workflows/markdown_linter.yml@stable
+    with:
+      context: Markdown Linting
+      config_file: .markdownlint-cli2.jsonc
