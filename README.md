@@ -104,7 +104,7 @@ This utility supports an [opinionated flow](docs/workflow.md). If you share our 
 
 **More goodies in the discussions**
 
-- [The Discussions on the repo](../../gh-tt/discussions) contains a lot of additional perspective and reflections on how the get the most our of this `gh tt` utility.
+- [The Discussions on the repo](../../discussions) contains a lot of additional perspective and reflections on how the get the most our of this `gh tt` utility.
 
 ## Introduction
 
@@ -134,7 +134,7 @@ Read about it in more detail in [docs/workflow.md](docs/workflow.md).
 
 ## Feedback, discussions, contributing
 
-Issues are open on the repo: [`devx-cafe/gh-tt`](../../gh-tt/issues). If you experience errors, misbehavior, or have feature requests, feel free to join the discussion.
+Issues are open on the repo: [`devx-cafe/gh-tt`](../../issues). If you experience errors, misbehavior, or have feature requests, feel free to join the discussion.
 
 For contributing, see [CONTRIBUTING.md](CONTRIBUTING.md).
 
@@ -287,4 +287,4 @@ gh responsibles  # instead of gh tt responsibles
 gh semver        # instead of gh tt semver
 ```
 
-Your feedback - or request for help - is always welcome: Use [the Issues](../../gh-tt/issues) or [the Discussions](../../gh-tt/discussions) to communicate.
+Your feedback - or request for help - is always welcome: Use [the Issues](../../issues) or [the Discussions](../../discussions) to communicate.

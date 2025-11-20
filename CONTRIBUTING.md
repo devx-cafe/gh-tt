@@ -6,7 +6,7 @@ Feel free to create a fork and fool around - following your own rules. But if yo
 
 If you are a trusted contributor and already have write access to the repo, consider:
 
-1. No commit can be accepted on _our_ `main`, unless it references a [GitHub issue](../../gh-tt/issues)[^issue] in the commit message.
+1. No commit can be accepted on _our_ `main`, unless it references a [GitHub issue](../../issues)[^issue] in the commit message.
 2. Development branches must be created using `gh tt workon` - so they refer to the issue they belong to.
 3. Development branches with more than one commit must all reference the issue they belong to - `gh tt wrapup` does that for you!
 4. Development branches must be squezeed to branches with just one single commit that can be merged _fast-forward only_. These branches must be prefixed with `ready/` to trigger the right workflow. `gh tt deliver` does that for you.

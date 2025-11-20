@@ -95,6 +95,7 @@ jobs:
 
   markdown_linter:
     name: Linting
+    needs: mark-pending
     permissions:
       statuses: write
       contents: read
