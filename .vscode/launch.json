@@ -12,7 +12,7 @@
             "name": "Python Debugger: gh_tt.py with Arguments (in current workspace)",
             "type": "debugpy",
             "request": "launch",
-            "program": "-m gh_tt",
+            "module": "gh_tt",
             "console": "integratedTerminal",
             "cwd": "${workspaceFolder}",
             "args": "${command:pickArgs}"

@@ -13,9 +13,11 @@ When in agent mode, and you are asked to create issues and comments to issues, p
 
 ## Read issue number from branch name
 
-When agent mode and I ask to _annotate a comment on the current changeset to the issue_ you can always read the implied issue number from the current git branch - development branches are prefixed with an integer, and that is a reference to the issue being worked on. The branch name is part of the zsh prompt in the @terminal, and can be directly accessed; The `$PS1` is set up to show the branch name too (e.g. `vscode ➜ /workspaces/gh-tt (321-Update_summary_instructions) $` equals issue 321). Let summary serve as a work log note to future self and current colleagues. It should summarize the changes made in the branch we're working on since we left `main`.
+When in agent mode and you ask to _annotate a comment on the current changeset to the issue_, extract the issue number directly from the terminal prompt shown in the `@terminal` context. Development branches are formatted as `(ISSUE_NUMBER-branch_name)` in the zsh prompt. For example, the prompt `vscode ➜ /workspaces/gh-tt (321-Update_summary_instructions) $` indicates you're working on issue 321.
 
-Equivalent to `git diff main...HEAD --name-status && git diff main...HEAD`.
+Extract the issue number (the integer before the first hyphen in the branch name shown in parentheses). If the full prompt with branch name is not visible in the `@terminal` context, run `git branch --show-current` to get the branch name, then extract the issue number from it. Do not ask for clarification—just get the information you need to proceed.
+
+Let the summary serve as a work log note to future self and current colleagues. It should summarize the changes made in the branch we're working on since we left `main`, equivalent to `git diff main...HEAD --name-status && git diff main...HEAD`.
 
 ## Change set summary
 

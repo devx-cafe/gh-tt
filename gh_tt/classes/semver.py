@@ -10,6 +10,7 @@ from pathlib import Path
 from gh_tt.classes.config import Config
 from gh_tt.classes.gitter import Gitter
 from gh_tt.classes.lazyload import Lazyload
+from gh_tt.utils import assert_contract
 
 
 class ReleaseType(StrEnum):
@@ -432,6 +433,14 @@ class Semver(Lazyload):
         message = f"\n{message}" if message else ""
 
         current_version = self.get_current_semver().version if self.get_current_semver() is not None else None
+
+        assert_contract(
+            contract=current_version is not None,
+            msg="No current release version found. Cannot bump version.",
+            hint="Run 'gh tt semver init' to create the initial version."
+        )
+
+
         current_prerelease_version = self.get_current_semver(ReleaseType.PRERELEASE).version if self.get_current_semver(ReleaseType.PRERELEASE) is not None else None
 
         self._get_next_semvers(current_version, current_prerelease_version)
