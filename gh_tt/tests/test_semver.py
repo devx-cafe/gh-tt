@@ -328,3 +328,155 @@ def test_bump_user_passed_prefix_included_over_config(prefix, expected):
 
 # We've completely removed support for custom prerelease suffixes
 # All prerelease versions will always use 'alpha1' as the initial prerelease version
+
+@pytest.mark.unittest
+def test_semver_init_basic(capsys):
+    """Test basic semver init with no existing tags"""
+    semver = Semver()
+    semver.set('semver_tags', {
+        'current': {
+            'release': [],
+            'prerelease': [],
+            'other': [],
+        }
+    })
+    
+    semver.init(version='1.0.0', message=None, prefix=None, execution_mode=ExecutionMode.DRY_RUN)
+    output = capsys.readouterr().out
+    
+    assert 'git tag -a -m "Initial release 1.0.0"' in output
+
+@pytest.mark.unittest
+def test_semver_init_with_message(capsys):
+    """Test semver init with an additional message"""
+    semver = Semver()
+    semver.set('semver_tags', {
+        'current': {
+            'release': [],
+            'prerelease': [],
+            'other': [],
+        }
+    })
+    
+    semver.init(version='2.0.0', message='First stable release', prefix=None, execution_mode=ExecutionMode.DRY_RUN)
+    output = capsys.readouterr().out
+    
+    assert 'git tag -a -m "Initial release 2.0.0' in output
+    assert 'First stable release' in output
+
+@pytest.mark.unittest
+def test_semver_init_with_prefix(capsys):
+    """Test semver init with a prefix"""
+    semver = Semver(prefix='v')
+    semver.set('semver_tags', {
+        'current': {
+            'release': [],
+            'prerelease': [],
+            'other': [],
+        }
+    })
+    
+    semver.init(version='1.5.0', message=None, prefix='v', execution_mode=ExecutionMode.DRY_RUN)
+    output = capsys.readouterr().out
+    
+    assert 'git tag -a -m "Initial release v1.5.0"' in output
+
+@pytest.mark.unittest
+def test_semver_init_fails_with_existing_release_tags():
+    """Test that init fails when release tags already exist"""
+    from gh_tt.utils import ContractError
+    
+    semver = Semver()
+    # Create a mock release tag
+    release_tag = type('SemverTag', (), {'version': SemverVersion(1, 0, 0)})()
+    semver.set('semver_tags', {
+        'current': {
+            'release': [release_tag],
+            'prerelease': [],
+            'other': [],
+        }
+    })
+    
+    with pytest.raises(ContractError) as exc_info:
+        semver.init(version='2.0.0', message=None, prefix=None)
+    
+    assert 'Cannot initialize semver' in str(exc_info.value)
+    assert 'tags already exist' in str(exc_info.value)
+
+@pytest.mark.unittest
+def test_semver_init_fails_with_existing_prerelease_tags():
+    """Test that init fails when prerelease tags already exist"""
+    from gh_tt.utils import ContractError
+    
+    semver = Semver()
+    # Create a mock prerelease tag
+    prerelease_tag = type('SemverTag', (), {'version': SemverVersion(1, 0, 0, 'alpha1')})()
+    semver.set('semver_tags', {
+        'current': {
+            'release': [],
+            'prerelease': [prerelease_tag],
+            'other': [],
+        }
+    })
+    
+    with pytest.raises(ContractError) as exc_info:
+        semver.init(version='1.0.0', message=None, prefix=None)
+    
+    assert 'Cannot initialize semver' in str(exc_info.value)
+
+@pytest.mark.unittest
+def test_semver_init_succeeds_with_other_tags(capsys):
+    """Test that init succeeds when only non-semver tags exist"""
+    semver = Semver()
+    semver.set('semver_tags', {
+        'current': {
+            'release': [],
+            'prerelease': [],
+            'other': ['some-old-tag', 'release-legacy'],
+        }
+    })
+    
+    semver.init(version='0.1.0', message=None, prefix=None, execution_mode=ExecutionMode.DRY_RUN)
+    output = capsys.readouterr().out
+    assert 'git tag -a -m "Initial release 0.1.0"' in output
+
+@pytest.mark.unittest
+def test_semver_init_invalid_version_format(capsys):
+    """Test that init rejects invalid version formats"""
+    semver = Semver()
+    semver.set('semver_tags', {
+        'current': {
+            'release': [],
+            'prerelease': [],
+            'other': [],
+        }
+    })
+    
+    with pytest.raises(SystemExit) as exc_info:
+        semver.init(version='invalid.version', message=None, prefix=None)
+    
+    assert exc_info.value.code == 1
+    assert 'Invalid version format' in capsys.readouterr().err
+
+@pytest.mark.unittest
+def test_semver_init_with_all_parameters(capsys):
+    """Test semver init with version, message, and prefix all set"""
+    semver = Semver(prefix='release-')
+    semver.set('semver_tags', {
+        'current': {
+            'release': [],
+            'prerelease': [],
+            'other': [],
+        }
+    })
+    
+    semver.init(
+        version='3.2.1',
+        message='Initial release with all features',
+        prefix='release-',
+        execution_mode=ExecutionMode.DRY_RUN
+    )
+    output = capsys.readouterr().out
+    
+    assert 'git tag -a -m "Initial release release-3.2.1' in output
+    assert 'Initial release with all features' in output

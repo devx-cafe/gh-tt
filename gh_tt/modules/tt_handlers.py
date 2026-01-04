@@ -111,6 +111,20 @@ def _handle_semver_bump_build(args, semver):
         print(cmd)
 
 
+def _handle_semver_init(args, semver):
+    """Handle the semver init subcommand"""
+    execution_mode = ExecutionMode.LIVE if args.run else ExecutionMode.DRY_RUN
+    new_tag = semver.init(
+        version=args.tag,
+        message=args.message,
+        prefix=args.prefix,
+        execution_mode=execution_mode
+    )
+    # Print the new tag in --run mode (which is the default)
+    if args.run:
+        print(f"{new_tag}")
+
+
 def _handle_semver_bump(args, semver, release_type):
     """Handle the semver bump subcommand"""
     assert args.level in ['major', 'minor', 'patch', 'prerelease', 'build']
@@ -140,7 +154,9 @@ def handle_semver(args):
     # Use the level to determine if this is a prerelease operation
     release_type = ReleaseType.PRERELEASE if args.semver_command == 'bump' and args.level == 'prerelease' else ReleaseType.RELEASE
     
-    if args.semver_command == 'bump':
+    if args.semver_command == 'init':
+        _handle_semver_init(args, semver)
+    elif args.semver_command == 'bump':
         _handle_semver_bump(args, semver, release_type)
     elif args.semver_command == 'list':
         filter_type = getattr(args, 'filter_type', 'release')

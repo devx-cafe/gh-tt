@@ -416,6 +416,74 @@ class Semver(Lazyload):
         
         return max(current_tags['prerelease'], default=None)
 
+    def init(
+            self,
+            version: str,
+            message: str | None = None,
+            prefix: str | None = None,
+            execution_mode: ExecutionMode = ExecutionMode.LIVE
+        ) -> str:
+        """Creates the initial semver tag for the repository.
+        
+        Args:
+            version: The initial version in X.Y.Z format (e.g., '0.0.1')
+            message: Optional additional message for the annotated tag
+            prefix: Optional prefix to prepend to the tag
+            execution_mode: Whether to execute the command (LIVE) or just print it (DRY_RUN)
+            
+        Returns:
+            str: The created tag string
+            
+        Raises:
+            SystemExit(1): If tags already exist (not empty list)
+        """
+        # Check if any semver tags already exist (other non-semver tags don't count)
+        current_tags = self.get('semver_tags')['current']
+        has_any_semver_tags = any(
+            current_tags.get(category) 
+            for category in ['release', 'prerelease']
+        )
+        
+        assert_contract(
+            contract=not has_any_semver_tags,
+            msg="Cannot initialize semver: semver tags already exist in the repository.",
+            hint="Use 'gh tt semver bump' to bump existing tags\n💡 Use 'gh tt semver list' to explore."
+        )
+        
+        # Parse and validate the version
+        try:
+            SemverVersion.from_string(version)
+        except ValueError as e:
+            print(f"Invalid version format: {e}", file=sys.stderr)
+            sys.exit(1)
+        
+        # Use the provided prefix or default
+        if prefix is None:
+            prefix = self.get('prefix')
+        
+        # Build the tag string
+        tag_str = f'{prefix}{version}'
+        
+        # Build the message
+        tag_message = f"Initial release {tag_str}"
+        if message:
+            tag_message += f"\n{message}"
+        
+        # Create the tag
+        cmd = f"git tag -a -m \"{tag_message}\" {tag_str}"
+        
+        if execution_mode is ExecutionMode.DRY_RUN:
+            print(f"{cmd}")
+            return tag_str
+        
+        assert execution_mode is ExecutionMode.LIVE
+        asyncio.run(Gitter(
+            cmd=cmd,
+            msg=f"Creating initial version tag '{tag_str}'"
+        ).run())
+        
+        return tag_str
+
     def bump(
             self, 
             level: str, 
