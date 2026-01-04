@@ -121,7 +121,7 @@ class Devbranch(Lazyload):
         # push the branch to the remote
 
         _ = asyncio.run(self._run("git_push", {
-            "force_switch": "--force-with-lease" if force else ""
+            "force_switch": "--force" if force else ""
         }))
 
         return True
