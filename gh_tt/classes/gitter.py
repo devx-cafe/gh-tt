@@ -21,7 +21,7 @@ class Gitter(Lazyload):
     fetched = False  # Flag to indicate if the repository has been fetched
     class_cache: ClassVar[dict] = {}  # Dictionary to store class cache data
 
-    _fetch_lock = asyncio.Lock()
+    _fetch_lock: ClassVar[asyncio.Lock | None] = None
 
     git_path = shutil.which('git')
     assert git_path is not None, "Git not found on PATH. Git is required for gh-tt to work. To proceed, install git."
@@ -212,10 +212,17 @@ class Gitter(Lazyload):
         return asyncio.run(cls()._run("get_commit_sha"))
 
     @classmethod
+    def _get_fetch_lock(cls):
+        """Get or create the fetch lock lazily to ensure it's created in the correct event loop"""
+        if cls._fetch_lock is None:
+            cls._fetch_lock = asyncio.Lock()
+        return cls._fetch_lock
+
+    @classmethod
     async def fetch(cls, *, prune=False, again=False):
         """Fetch """
 
-        async with cls._fetch_lock:
+        async with cls._get_fetch_lock():
             if cls.fetched and not again:
                 return True
 
