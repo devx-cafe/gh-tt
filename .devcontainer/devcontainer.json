@@ -30,21 +30,22 @@
 		}
 	},
 
-	"initializeCommand": "./.devcontainer/initializeCommand.sh",
 	"postCreateCommand": "./.devcontainer/postCreateCommand.sh",
 
 	// Mount the workspace folder one level higher than the git repo
 	"workspaceMount": "source=${localWorkspaceFolder}/../,target=/workspaces,type=bind",
 	"workspaceFolder": "/workspaces/${localWorkspaceFolderBasename}",
+	// Mount the user's home directory - ignored in GitHub Codespaces
 	"mounts": [
 		"source=${localEnv:HOME},target=/localhome,type=bind,consistency=cached"
 	],	
 
     "remoteEnv": {
         "UV_LINK_MODE": "copy",
-        "UV_VENV_CLEAR": "1"
+        "UV_VENV_CLEAR": "1",
+		"GH_TOKEN": "${localEnv:GH_TOKEN}",
+		"_GH_TOKEN": "${localEnv:_GH_TOKEN}"
     }
-
 	// Use 'forwardPorts' to make a list of ports inside the container available locally.
 	// "forwardPorts": [],
 
