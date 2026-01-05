@@ -7,6 +7,7 @@ from types import MappingProxyType
 from gh_tt.classes.config import Config
 from gh_tt.classes.gitter import Gitter
 from gh_tt.classes.lazyload import Lazyload
+from gh_tt.utils import assert_contract
 
 
 class Project(Lazyload):
@@ -105,19 +106,25 @@ class Project(Lazyload):
         if not owner or not number:
             return None
 
-        project_id = self.get_project_id()
-        if not project_id:
-            return None
-            
-        item_id = self.add_issue(url=url)
-        if not item_id:
-            return None
-            
-        field_desc = self.get_field_description(field=field)
-        if not field_desc:
-            return None
+        try:
+          project_id = self.get_project_id()
+          if not project_id:
+              return None
+              
+          item_id = self.add_issue(url=url)
+          if not item_id:
+              return None
+              
+          field_desc = self.get_field_description(field=field)
+          if not field_desc:
+              return None        
 
-        return self._process_field_update(project_id, item_id, field_desc, field_value)
+          return self._process_field_update(project_id, item_id, field_desc, field_value)
+        
+        except RuntimeError as e:
+            assert_contract(
+               msg=str(e),
+               contract=False)
 
     def _process_field_update(self, project_id, item_id, field_desc, field_value):
         """Process the field update with the given parameters"""
