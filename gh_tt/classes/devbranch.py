@@ -192,8 +192,8 @@ class Devbranch(Lazyload):
 
         asyncio.run(self._load_issue_number())
 
-        if self.get('issue_number') is None:
-            print('⛔️ Wrapup is supported only on branches named <issue number>-<branch_name>', file=sys.stderr)
+        if self.get('issue_number') is None and not self.get('branch_name').startswith('copilot/'):
+            print('⛔️ Wrapup is supported only on branches named <issue number>-<branch_name> or copilot/*', file=sys.stderr)
             sys.exit(1)
 
         self._load_status()
