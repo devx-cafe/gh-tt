@@ -6,6 +6,8 @@
     "!**/temp/**"
   ],
   "config": {
+    "MD032": false,
+    "MD060": false,
     "MD033": false,
     "MD004": { "style": "dash" },
     "MD013": false,

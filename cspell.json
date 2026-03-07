@@ -41,5 +41,24 @@
         "pytest",
         "coveragerc",
         "pyproject"
-    ]
+    ],
+  "dictionaryDefinitions": [
+    {
+      "name": "Repo dictionary",
+      "path": "./.dict/repo.txt",
+    },
+  ],
+  "dictionaries": ["Repo dictionary"],
+  "ignoreRegExpList": [
+    "{%[\\s\\S]*?%}", // ignore inline liquid tags
+    "^---[\\s\\S]*?^---$", // ignore YAML front matter
+    "^```[\\s\\S]*?^```$", // ignore code block
+    "{%\\shighlight[\\s\\S]*?{%\\sendhighlight\\s%}", // ignore highlight liquid tag blocks
+    "`.*`", // ignore inline code
+    "<code>.*</code>", // ignore HTML code tags
+    "<!--.*?-->", // ignore HTML comments
+    "<a.*?>", // ignore HTML anchor tags,
+    "<img.*?>", // ignore HTML image tags,
+    "'.*'", // ignore text in single quotes
+  ]
 }
