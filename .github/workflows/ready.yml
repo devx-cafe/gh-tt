@@ -13,61 +13,126 @@ permissions:
   contents: write
   issues: write
 
+env:
+  PYTHON_VERSIONS: "['3.11', '3.12', '3.13']"  
+
 jobs:
 
-  # mark-pending:
-  #   name: Statuses
-  #   permissions:
-  #     statuses: write
-  #     contents: read
-  #   uses: lakruzz/workflows/.github/workflows/mark_pending.yml@stable
-  #   with:
-  #     statuses: |
-  #       E2E in testbed
-
-  inherit-statuses:
-    name: Inherit statuses
+  # It is not possible to pass an environment variable down to
+  # a reusable workflow as an argument via _with_.
+  # See: https://stackoverflow.com/a/73305536
+  # The workaround is to put the environment variable as a step output.
+  python_versions:
+    runs-on: ubuntu-latest
+    outputs:
+      python_versions: ${{ steps.step1.outputs.python_versions }}
+    steps:
+      - id: step1
+        run: echo "python_versions=$PYTHON_VERSIONS" >> "$GITHUB_OUTPUT"
+      
+  mark-pending:
+    name: Statuses
     permissions:
       statuses: write
       contents: read
-    uses: lakruzz/workflows/.github/workflows/inherit_statuses.yml@stable
-
-  # pytest_integration:
-  #   name: Integration testing
-  #   needs: 
-  #     - mark-pending
-  #     - inherit-statuses
-  #   permissions:
-  #     statuses: write
-  #   # continue-on-error: true # <- This doesn't work in reusable workflows, so we set it in the integration_test.yml
-  #   secrets: inherit
-  #   uses: ./.github/workflows/integration_test.yml
-  #   with:
-  #     context: E2E in testbed
-
-  fast-forward-merge:
-    name: Merge
-    needs:
-      - inherit-statuses
-    permissions:
-      contents: write
-    secrets:
-      token: ${{ secrets.TAKT_PUSHER }}
-    uses: lakruzz/workflows/.github/workflows/fast_forward.yml@stable
+    uses: lakruzz/workflows/.github/workflows/mark_pending.yml@stable
     with:
-      target_branch: main #default is main
-      user_name: "GitHub Action: ready" #required 
-      user_email: "takt-ready@devx.cafe" # required
+      statuses: |
+        Ruff Check
+        Cspell Check
+        Markdown Linting
+        Property-based testing - Python 3.11
+        Property-based testing - Python 3.12
+        Property-based testing - Python 3.13
+        Unit testing w/ coverage - Python 3.11
+        Unit testing w/ coverage - Python 3.12
+        Unit testing w/ coverage - Python 3.13
 
-  close_issue:
-    needs: fast-forward-merge
+  pytest_with_coverage:
+    name: Unit testing
+    needs: [mark-pending, python_versions]
     permissions:
+      statuses: write
+      contents: read
+    uses: lakruzz/workflows/.github/workflows/pytest_matrix.yml@stable
+    with:
+      context: Unit testing w/ coverage
+      pytest_arguments: "--cov=. --cov-config=.coveragerc -m unittest"
+      python_versions: ${{ needs.python_versions.outputs.python_versions }}
+
+  pytest_hypothesis:
+    name: Property-based testing
+    needs: [mark-pending, python_versions]
+    permissions: 
+      statuses: write
+      contents: read
+    uses: lakruzz/workflows/.github/workflows/pytest_matrix.yml@stable
+    with:
+      context: Property-based testing
+      pytest_arguments: "-m hypothesis --hypothesis-profile=1000"
+      python_versions: ${{ needs.python_versions.outputs.python_versions }}
+
+  ruff_linting:
+    name: Linting
+    needs: mark-pending
+    permissions:
+      statuses: write
+      contents: read
+    uses: lakruzz/workflows/.github/workflows/ruff_check.yml@stable
+    with:
+      context: Ruff Check
+
+  cspel_check:
+    name: Spelling
+    needs: mark-pending
+    permissions:
+      statuses: write
+      contents: read
+    uses: lakruzz/workflows/.github/workflows/cspell_check.yml@stable
+    with:
+      context: Cspell Check
+
+  markdown_linter:
+    name: Linting
+    needs: mark-pending
+    permissions:
+      statuses: write
+      contents: read
+    uses: lakruzz/workflows/.github/workflows/markdown_linter.yml@stable
+    with:
+      context: Markdown Linting
+      config_file: .markdownlint-cli2.jsonc
+
+  merge-to-trunk:
+    name: Merge to trunk
+    runs-on: ubuntu-latest
+    needs:
+      - pytest_with_coverage
+      - pytest_hypothesis
+      - ruff_linting
+      - cspel_check
+      - markdown_linter
+    env:
+      GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+    permissions:
+      pull-requests: write
       issues: write
       contents: write
-    uses: lakruzz/workflows/.github/workflows/close_issue.yml@stable
-    with:
-      user_name: "GitHub Action: ready" #required 
-      user_email: "takt-ready@devx.cafe" # required
-      delete_issue_branch: true # default is true
-      delete_ready_branch: true # default is true
 
+    steps:
+      # Not sue what goes on here? Whre did the secret come from?
+      # check *./docs/ready-pusher.md' for more details on how to set up and use this workflow
+      - uses: actions/checkout@v6
+        with:
+          fetch-depth: 0 # Fetch full history to ensure we can merge and push
+          token: ${{ secrets.READY_PUSHER }} # PAT with content:write (can not use secrets.GITHUB_TOKEN as it is a special case, it does not trigger other workflows on push)
+
+      - uses: devx-cafe/takt-actions/ready-to-trunk@v1
+        # with: #Uncomment if you want to override any of the default inputs
+        # target_branch: #default is main
+        # user_name: #default is "Ready Pusher Bot"
+        # user_email: #default is "ready-pusher@${{ github.repository_owner }}.github.com"
+        # delete_dev_branch: false # default is true
+        # delete_ready_branch: false # default is true
+        # close_pr: false # default is true
+        # close_issue: false # default is true      

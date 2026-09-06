@@ -12,3 +12,4 @@ dist/
 temp/
 tmp/
 .hypothesis
+.DS_Store

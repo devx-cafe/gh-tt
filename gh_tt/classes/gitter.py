@@ -162,7 +162,9 @@ class Gitter(Lazyload):
         #    https://github.com/cli/cli/releases/tag/v2.65.0
 
         version = stdout.split()[2]
-        if version < cls.required_version:
+        version_components = tuple(map(int, version.split('.')))
+        required_version_components = tuple(map(int, cls.required_version.split('.')))
+        if version_components < required_version_components:
             print(
                 f"gh version {version} is not supported. Please upgrade to version {cls.required_version} or higher", file=sys.stderr)
             exit(1)

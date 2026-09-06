@@ -35,7 +35,7 @@ jobs:
           uv venv
           uv sync --extra dev
 
-          gh extension install thetechcollective/gh-set-status --pin stable
+          gh extension install lakruzz/gh-set-status --pin stable
 
       - name: Generate GitHub App installation token
         uses: actions/create-github-app-token@v2

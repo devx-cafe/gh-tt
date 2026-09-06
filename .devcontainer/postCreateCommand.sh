@@ -52,8 +52,8 @@ if [ $AUTH_OK -ne 0 ]; then
   echo "$PREFIX ❌ FAILURE"
   exit 1
 else
-  echo "$PREFIX Installing the TakT gh cli extension from devx-cafe/gh-tt "
-  gh extension install devx-cafe/gh-tt --pin experimental
+  echo "$PREFIX Installing the TakT gh cli extension from _this repo_ "
+  gh extension install .
   echo "$PREFIX Installing the gh shorthand aliases"    
   gh alias import .devcontainer/.gh_alias.yml --clobber
 fi

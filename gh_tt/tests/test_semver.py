@@ -114,7 +114,7 @@ def test_semver_first_prerelease_bump(capsys):
 @pytest.mark.integration
 def test_note_with_one_release():
     [extension_list, _] = Testbed.gitter_run(cmd='gh extension list')
-    if 'thetechcollective/gh-tt' in extension_list:
+    if 'devx-cafe/gh-tt' in extension_list:
         raise SystemExit(
             "You have a remote version of the 'gh-tt' extension installed.\n"
             "Your local changes would not be taken into consideration when running the integration test.\n"

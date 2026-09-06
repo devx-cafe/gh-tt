@@ -43,7 +43,7 @@ def workon_success_env() -> Generator[FixtureReturn]:
         owner = json.loads(owner_data)['data']['node']['name']
     else:
         [extension_list, _] = Testbed.gitter_run(cmd='gh extension list')
-        if 'thetechcollective/gh-tt' in extension_list:
+        if 'devx-cafe/gh-tt' in extension_list:
             raise SystemExit(
                 "You have a remote version of the 'gh-tt' extension installed.\n"
                 "Your local changes would not be taken into consideration when running the integration test.\n"
