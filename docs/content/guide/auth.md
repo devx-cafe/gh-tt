@@ -1,4 +1,7 @@
-# GitHub CLI Authentication in Devcontainers
+---
+title: "GitHub CLI authentication in devcontainers"
+description: "Elevating GitHub CLI permissions so gh-tt can write to GitHub Projects."
+---
 
 **Repos using TakT Github CLI extension may need elevated permissions on GitHub (if a `project` node is  defined in `.tt_config.json`)**
 

@@ -1,3 +1,8 @@
+---
+title: "Class diagram"
+description: "Development-time class diagram of the gh-tt implementation."
+---
+
 <!-- cspell:disable -->
 > [!NOTE]  
 >This class diagram was used as a help during development. It's not entirely a true to the actual implementation.

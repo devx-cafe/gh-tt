@@ -1,4 +1,7 @@
-# .tech Workflow
+---
+title: "The .tech Workflow"
+description: "An opinionated, GitHub-centric workflow built around issues, projects and issue branches."
+---
 
 ## Suitability Filter
 

@@ -1,11 +1,14 @@
-# A new perspective
+---
+title: "A new perspective"
+description: "Core concepts of the PR-less flow: issue branches, and delivering straight to main."
+---
 
 ## Core concept: Issue branch
 
 We work _issue_ branches defined as follows:
 
 - [x] Must come off of `main`
-- [x] Must have the issue number it relates to as the first part of the name followed by a dash an then the title of the issue (whitespaces replaced by underscores)
+- [x] Must have the issue number it relates to as the first part of the name followed by a dash and then the title of the issue (whitespaces replaced by underscores)
 
 ```mermaid
 gitGraph
@@ -21,7 +24,7 @@ gitGraph
 When an issue is worked on
 
 - [x] An existing branch that matches the definition of an _issue branch_ must be reused if it exists either locally or remote
-- [x] or else created
+- [x] or else it is created
 - [x] Must be registered with the issue as a _development branch_ (`gh issue develop ...`) (implies being made made available to `origin` immediately upon creation)
 - [x] Must have it's upstream set to a branch with the same name in `origin`
 

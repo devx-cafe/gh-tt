@@ -7,7 +7,7 @@ transition: "slide"
 separators:
   section: '\n\n---\n---\n\n'
   slide: '\n\n---\n\n'
-reveal: https://reveals.thetechcollective.dev/markdownloader/?owner=thetechcollective&repo=gh-tt&file=docs/semver-command.md
+reveal: https://reveals.thetechcollective.dev/markdownloader/?owner=thetechcollective&repo=gh-tt&file=docs/content/guide/semver-command.md
 ---
 
 ## Semantic Versioning with gh-tt
@@ -332,7 +332,7 @@ gh tt semver list
 
 Thank you for learning about the `gh tt semver` command!
 
-For more details, check out the [documentation](https://github.com/thetechcollective/gh-tt/blob/main/docs/semver_how_to_release.md).
+For more details, check out the [documentation](https://github.com/thetechcollective/gh-tt/blob/main/docs/content/guide/semver_how_to_release.md).
 
 <!-- .element: style="font-size:30px" -->
 

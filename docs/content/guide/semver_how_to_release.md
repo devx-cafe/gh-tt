@@ -1,4 +1,7 @@
-# How to create a new release – or prerelease – using the `semver` command
+---
+title: "How to release with semver"
+description: "Create a new release or prerelease using the gh tt semver command."
+---
 
 ## Quick guide:
 

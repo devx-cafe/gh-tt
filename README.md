@@ -95,12 +95,12 @@ By maintaining `tt`, we ensure a short, native-feeling CLI experience without co
 
 ## gh-tt
 
-This utility supports an [opinionated flow](docs/workflow.md). If you share our values and like our process, you can easily set this up for your own team.
+This utility supports an [opinionated flow](docs/content/guide/workflow.md). If you share our values and like our process, you can easily set this up for your own team.
 
 **Addendum**
 
-- [The opinionated Takt workflow](docs/workflow.md)
-- [How we work with _mentorship_ over _pull requests_](docs/responsibles.md)
+- [The opinionated Takt workflow](docs/content/guide/workflow.md)
+- [How we work with _mentorship_ over _pull requests_](docs/content/guide/responsibles.md)
 
 **More goodies in the discussions**
 
@@ -112,7 +112,7 @@ In short, `gh-tt` supports a workflow that
 
 1. follows trunk-based development practices (`main` is the only long-lived branch)
 2. does **not** rely on Pull Requests, wait states and bureaucracy
-3. works with [RESPONSIBLES](docs/responsibles.md) (CODEOWNERS re-implemented for the PR-less team)
+3. works with [RESPONSIBLES](docs/content/guide/responsibles.md) (CODEOWNERS re-implemented for the PR-less team)
 
 `gh tt` implements ideas from DevOps, GitOps and CI/CD, wrapped up into a sweet, highly configurable, workflow. It looks something like this:
 
@@ -130,7 +130,7 @@ In short, `gh-tt` supports a workflow that
     - Run CI
     - If CI passes, fast-forward merge the ready branch commit to main
 
-Read about it in more detail in [docs/workflow.md](docs/workflow.md).
+Read about it in more detail in [docs/content/guide/workflow.md](docs/content/guide/workflow.md).
 
 ## Feedback, discussions, contributing
 
@@ -211,7 +211,7 @@ _temp.token
 
 Run `gh tt -h` to see the syntax.
 
-The extension provides four subcommands: `workon`, `wrapup`, and `deliver`, `responsibles` and `semver`. See the [workflow](docs/workflow.md) for details.
+The extension provides four subcommands: `workon`, `wrapup`, and `deliver`, `responsibles` and `semver`. See the [workflow](docs/content/guide/workflow.md) for details.
 
 > [!TIP]
 > Each subcommand supports the `-h, --help` option to display in-detail guidance for the specific subcommand, e.g.
