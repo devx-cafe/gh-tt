@@ -1,9 +1,9 @@
 ---
-title: "GitHub CLI authentication in devcontainers"
+title: "GitHub CLI authentication"
 description: "Elevating GitHub CLI permissions so gh-tt can write to GitHub Projects."
 ---
 
-**Repos using TakT Github CLI extension may need elevated permissions on GitHub (if a `project` node is  defined in `.tt_config.json`)**
+**Repos using TakT Github CLI extension may need elevated permissions on GitHub (if a `project` node is defined in `.tt_config.json`)**
 
 ## Problem
 
@@ -36,7 +36,7 @@ If you don't already have a Personal Access Token (gho) with the required permis
 ```bash
 # Use GitHub's web-based auth flow to create a token with project access
 unset GH_TOKEN  && unset GITHUB_TOKEN && gh auth logout #Clear all existing tokens
-gh auth login -h github.com -p https -s project -w -c # stores the token in ~/.config/gh/hosts.yml 
+gh auth login -h github.com -p https -s project -w -c # stores the token in ~/.config/gh/hosts.yml
 ```
 
 This will prompt you for authentication in the browser and create a token with `project:write` scope in addition to the default permissions. You can verify the permissions by running:
@@ -45,8 +45,7 @@ This will prompt you for authentication in the browser and create a token with `
 gh auth status
 ```
 
-The token that is generates is an OAuth token that never expires -if you ever need to revoke it goto the [Applications settings in your GitHub profile](
-https://github.com/settings/applications). It will be listed as _GitHub CLI_
+The token that is generates is an OAuth token that never expires -if you ever need to revoke it goto the [Applications settings in your GitHub profile](https://github.com/settings/applications). It will be listed as _GitHub CLI_
 
 ### Step 2: Store the Token so containers can read it
 
@@ -73,9 +72,9 @@ To use the token in Devcontainers hosted in your local Docker, store it as an **
 
 - Edit either your `~/.profile` or `~/.zprofile` dependant on what shell you use locally.
 - The profile should define the GH_TOKEN variable like this (replace with your token):
-  
+
   ```bash
-  export GH_TOKEN=gho_********************  
+  export GH_TOKEN=gho_********************
   ```
 
 <details><summary>Avoid writing you token in plain text - here's how</summary>
@@ -100,7 +99,7 @@ export _GH_TOKEN=Z2hvX*** # The output you captured from the command above
 export GH_TOKEN=$(echo $_GH_TOKEN | base64 --decode)
 ```
 
-</details>  
+</details>
 
 ## Verification
 

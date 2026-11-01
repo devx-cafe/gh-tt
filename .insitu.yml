@@ -1,0 +1,110 @@
+# .insitu.yml – insitu parallel task runner configuration
+# Run 'insitu run --plan static test' to preview these waves.
+# Run 'insitu run static test' to execute them.
+
+defaults:
+  die-on-error: true
+  timeout: 5m
+  verbose: false
+
+# Inventory: define every check once here.
+inventory:
+  - id: "ruff"
+    name: "Ruff Check"
+    command: "uv run ruff check --output-format=concise ."
+
+  - id: "unit-coverage"
+    name: "Unit Test with Coverage"
+    command: "uv run pytest --cov=. --cov-report= --cov-config=.coveragerc -m unittest --tb=no -q"
+
+  - id: "hypothesis"
+    name: "Property-based Testing"
+    command: "uv run pytest -m hypothesis --hypothesis-profile=1000"
+
+  - id: "cspell"
+    name: "Spell Check"
+    command: "cspell lint --no-progress"
+
+  - id: "markdown-lint"
+    name: "Markdown Lint Check"
+    command: "markdownlint-cli2"
+
+  - id: "gh-auth"
+    name: "GitHub Authentication"
+    command: "gh auth status"
+
+  - id: "install-takt"
+    name: "Install Takt"
+    command: "gh extension install devx-cafe/gh-tt"
+
+  - id: "install-takt-shortcuts"
+    name: "Install Takt Shortcuts"
+    command: |
+      gh alias set workon '!gh tt workon "$@"' --clobber 
+      gh alias set wrapup '!gh tt wrapup "$@"' --clobber
+      gh alias set deliver '!gh tt deliver "$@"' --clobber
+      gh alias set semver '!gh tt semver "$@"' --clobber
+
+  - id: "safe-repo"
+    name: "Mark repository as safe for git operations"
+    command: "git config --global --add safe.directory $(pwd)"
+
+  - id: "install-npm-tools"
+    name: "Install linting and checker tools"
+    command: |
+      npm install -g cspell markdownlint-cli2 @cspell/dict-da-dk prettier @mindovermachine-dev/remote-astro-theme
+
+  - id: repo-gitconfig
+    name: "Use repo-root .gitconfig for consistent git settings"
+    command: |
+      git config --local --get include.path | grep -e ../.gitconfig >/dev/null 2>&1 || \
+      git config --local --add include.path ../.gitconfig
+
+  - id: "install-uv"
+    name: "Install uv (Universal Virtualenv)"
+    command: |
+      curl -LsSf https://astral.sh/uv/install.sh | sh
+      uv venv --python 3.11
+      . .venv/bin/activate
+      uv sync --extra dev
+
+  - id: "fix-markdown"
+    name: "Fix all fixable markdown issues"
+    command: |
+      markdownlint-cli2 --fix
+
+  - id: "fix-prettier"
+    name: "Fix all fixable prettier issues"
+    command: |
+      prettier --write .
+
+# Waves: compose checks into ordered execution groups.
+waves:
+  - id: "trunk-worthy"
+    name: "Trunk-worthy Checks"
+    parallel: true
+    checks:
+      - "ruff"
+      - "unit-coverage"
+      - "hypothesis"
+      - "cspell"
+      - "markdown-lint"
+
+  - id: "fix-all"
+    name: "Fix anything that can be fixed automatically"
+    parallel: true
+    checks:
+      - "fix-markdown"
+      - "fix-prettier"
+
+  - id: "post-create"
+    name: "Dev Container Post Create"
+    parallel: true
+    checks:
+      - "gh-auth"
+      - "install-takt"
+      - "install-takt-shortcuts"
+      - "safe-repo"
+      - "repo-gitconfig"
+      - "install-npm-tools"
+      - "install-uv"

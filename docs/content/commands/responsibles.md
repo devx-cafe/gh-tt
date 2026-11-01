@@ -1,5 +1,5 @@
 ---
-title: "RESPONSIBLES"
+title: "responsibles"
 description: "How the RESPONSIBLES file re-implements CODEOWNERS for the PR-less team."
 ---
 

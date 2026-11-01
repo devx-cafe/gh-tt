@@ -1,45 +1,46 @@
 {
-    "version": "0.2",
-    "language": "en",
-    "ignorePaths": [
-        "**/node_modules/**",
-        "**/.git/**",
-        "**/.vscode/**",
-        "**/.cspell/**",
-        "**/logs/**",
-        "**/tmp/**",
-        "**/temp/**"
-    ],
-    "files": [
-        "**/*.md",
-        "**/*.txt",
-        "_data/**/*.json",
-        "**/*.yml",
-        "**/*.yaml",
-        "**/LICENSE"
-    ],
-    "words": [
-        "albertbanke",
-        "codeowners",
-        "devcontainer",
-        "devcontainers",
-        "devx",
-        "lakruzz",
-        "ravvnen",
-        "responsibles",
-        "SMED",
-        "squezeed",
-        "takt",
-        "thetechcollective",
-        "workon",
-        "wrapup"
-    ],
-    "ignoreWords": [
-        "cspell",
-        "ffmerge",
-        "cspellrc",
-        "pytest",
-        "coveragerc",
-        "pyproject"
-    ]
+  "version": "0.2",
+  "language": "en",
+  "ignorePaths": [
+    "**/node_modules/**",
+    "**/.git/**",
+    "**/.vscode/**",
+    "**/.cspell/**",
+    "**/logs/**",
+    "**/tmp/**",
+    "**/temp/**"
+  ],
+  "files": [
+    "**/*.md",
+    "**/*.txt",
+    "_data/**/*.json",
+    "**/*.yml",
+    "**/*.yaml",
+    "**/LICENSE"
+  ],
+  "words": [
+    "albertbanke",
+    "codeowners",
+    "devcontainer",
+    "devcontainers",
+    "devx",
+    "lakruzz",
+    "ravvnen",
+    "responsibles",
+    "SMED",
+    "squezeed",
+    "takt",
+    "thetechcollective",
+    "workon",
+    "worthyness",
+    "wrapup"
+  ],
+  "ignoreWords": [
+    "cspell",
+    "ffmerge",
+    "cspellrc",
+    "pytest",
+    "coveragerc",
+    "pyproject"
+  ]
 }

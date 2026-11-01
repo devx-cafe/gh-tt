@@ -4,8 +4,9 @@ description: "Development-time class diagram of the gh-tt implementation."
 ---
 
 <!-- cspell:disable -->
+
 > [!NOTE]  
->This class diagram was used as a help during development. It's not entirely a true to the actual implementation.
+> This class diagram was used as a help during development. It's not entirely a true to the actual implementation.
 
 ```mermaid
 classDiagram
@@ -20,7 +21,7 @@ classDiagram
         -bool validated_version
         -bool validated_scope
         -[]str required_scopes
-        -str required_version      
+        -str required_version
         @load_cache()
         @save_cache()
         @result run()
@@ -28,7 +29,7 @@ classDiagram
         @bool validate_gh_scope()
     }
     note for Gitter "Knows git and gh CLIs,
-      can cache and reuse runs 
+      can cache and reuse runs
       if needed"
 
     class Lazyload {
@@ -39,7 +40,7 @@ classDiagram
         +string get()
         +to_json()
     }
-    note for Lazyload "Genric class, which holds all properties in a dictionary. 
+    note for Lazyload "Genric class, which holds all properties in a dictionary.
     Supports setters, getters and lazyload - can print itself
     to jason (for debug purpose). Has a Gittter"
 
@@ -51,11 +52,11 @@ classDiagram
       +create_issue(str title)
       +str add_to_project()
     }
-    note for Issue "Represents an issue. Both as 
+    note for Issue "Represents an issue. Both as
       a repo issue and a project-item"
 
     class Devbranch{
-      -str name   
+      -str name
       -int issue
       -str sha1
       -str commitmessage
@@ -72,8 +73,8 @@ classDiagram
       +set_issue()
       +deliver()
     }
-    note for Devbranch "Represents a development branch 
-      (not main). Knows how to collapse 
+    note for Devbranch "Represents a development branch
+      (not main). Knows how to collapse
       a verbose branch history into one commit"
 
     class Project{
@@ -91,7 +92,7 @@ classDiagram
       +add_issue()
       +update_field()
     }
-    note for Project "Represents a GitHub Projects, 
-    knows how to update fields 
+    note for Project "Represents a GitHub Projects,
+    knows how to update fields
     on issues in the project"
 ```

@@ -1,54 +1,56 @@
 // For format details, see https://aka.ms/devcontainer.json. For config options, see the
 // README at: https://github.com/devcontainers/templates/tree/main/src/ubuntu
 {
-	"name": "Ubuntu",
-	// Or use a Dockerfile or Docker Compose file. More info: https://containers.dev/guide/dockerfile
-	"image": "mcr.microsoft.com/devcontainers/base:noble",
-	"features": {
-		"ghcr.io/devcontainers/features/common-utils:2": {},
-		"ghcr.io/devcontainers/features/github-cli:1": {},
-		"ghcr.io/devcontainers/features/python:1": {},
-		"ghcr.io/hspaans/devcontainer-features/pytest:1": {},
-		"ghcr.io/devcontainers-extra/features/npm-packages:1": {
-			"packages": ["cspell", "markdownlint-cli2"]
-		}		
-	},
-	"customizations": {
-		"vscode": {
-			"extensions": [
-				"ms-python.debugpy",
-				"ms-python.python",
-				"ms-python.vscode-pylance",
-				"streetsidesoftware.code-spell-checker",
-				"charliermarsh.ruff",
-				"github.vscode-github-actions",
-				"tamasfe.even-better-toml",
-				"mk12.better-git-line-blame",
-				"mhutchie.git-graph",
-				"DavidAnson.vscode-markdownlint"
-			]	
-		}
-	},
-
-	"postCreateCommand": "./.devcontainer/postCreateCommand.sh",
-
-	// Mount the workspace folder one level higher than the git repo
-	"workspaceMount": "source=${localWorkspaceFolder}/../,target=/workspaces,type=bind",
-	"workspaceFolder": "/workspaces/${localWorkspaceFolderBasename}",
-	// Mount the user's home directory - ignored in GitHub Codespaces
-	"mounts": [
-		"source=${localEnv:HOME},target=/localhome,type=bind,consistency=cached"
-	],	
-
-    "remoteEnv": {
-        "UV_LINK_MODE": "copy",
-        "UV_VENV_CLEAR": "1",
-		"GH_TOKEN": "${localEnv:GH_TOKEN}",
-		"_GH_TOKEN": "${localEnv:_GH_TOKEN}"
+  "name": "Ubuntu",
+  // Or use a Dockerfile or Docker Compose file. More info: https://containers.dev/guide/dockerfile
+  "image": "mcr.microsoft.com/devcontainers/base:noble",
+  "features": {
+    "ghcr.io/devcontainers/features/common-utils:2": {},
+    "ghcr.io/devcontainers/features/github-cli:1": {},
+    "ghcr.io/devcontainers/features/python:1": {},
+    "ghcr.io/hspaans/devcontainer-features/pytest:1": {},
+    "ghcr.io/devcontainers/features/node:1": {
+      "version": "lts",
+      "nodeGypDependencies": "false",
+      "installYarn": "false"
     }
-	// Use 'forwardPorts' to make a list of ports inside the container available locally.
-	// "forwardPorts": [],
+  },
+  "customizations": {
+    "vscode": {
+      "extensions": [
+        "ms-python.debugpy",
+        "ms-python.python",
+        "ms-python.vscode-pylance",
+        "streetsidesoftware.code-spell-checker",
+        "charliermarsh.ruff",
+        "github.vscode-github-actions",
+        "tamasfe.even-better-toml",
+        "mk12.better-git-line-blame",
+        "mhutchie.git-graph",
+        "DavidAnson.vscode-markdownlint"
+      ]
+    }
+  },
 
-	// Uncomment to connect as root instead. More info: https://aka.ms/dev-containers-non-root.
-	// "remoteUser": "root"
+  "postCreateCommand": "gh ext install devx-cafe/gh-insitu && gh insitu run post-create",
+
+  // Mount the workspace folder one level higher than the git repo
+  "workspaceMount": "source=${localWorkspaceFolder}/../,target=/workspaces,type=bind",
+  "workspaceFolder": "/workspaces/${localWorkspaceFolderBasename}",
+  // Mount the user's home directory - ignored in GitHub Codespaces
+  "mounts": [
+    "source=${localEnv:HOME},target=/localhome,type=bind,consistency=cached"
+  ],
+
+  "remoteEnv": {
+    "UV_LINK_MODE": "copy",
+    "UV_VENV_CLEAR": "1",
+    "GH_TOKEN": "${localEnv:GH_TOKEN}",
+    "_GH_TOKEN": "${localEnv:_GH_TOKEN}"
+  }
+  // Use 'forwardPorts' to make a list of ports inside the container available locally.
+  // "forwardPorts": [],
+
+  // Uncomment to connect as root instead. More info: https://aka.ms/dev-containers-non-root.
+  // "remoteUser": "root"
 }

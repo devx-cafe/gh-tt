@@ -50,6 +50,7 @@ gh tt semver note
 <!-- .element: style="font-size:30px" -->
 
 ---
+
 ---
 
 ## Basic Commands
@@ -111,6 +112,7 @@ Note:
 The --no-run flag is very helpful when you want to check what would happen without actually creating the tag.
 
 ---
+
 ---
 
 ## Working with Prereleases
@@ -152,6 +154,7 @@ $ gh tt semver bump --build --no-sha
 <!-- .element: style="font-size:30px" -->
 
 ---
+
 ---
 
 ## Release Notes
@@ -189,6 +192,7 @@ $ gh tt semver note --from v1.1.0 --to v1.2.0
 <!-- .element: style="font-size:30px" -->
 
 ---
+
 ---
 
 ## Complete Workflows
@@ -278,6 +282,7 @@ $ git prerelease temp/release_note.md
 <!-- .element: style="font-size:30px" -->
 
 ---
+
 ---
 
 ## Advanced Usage

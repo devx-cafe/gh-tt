@@ -1,5 +1,5 @@
 ---
-title: "How to release with semver"
+title: "semver"
 description: "Create a new release or prerelease using the gh tt semver command."
 ---
 
@@ -11,7 +11,7 @@ description: "Create a new release or prerelease using the gh tt semver command.
 
 `gh tt semver bump ...` will create a tag that is compliant with the semver [v2.0 spec.](https://semver.org/) It will be created locally in your repository. Once it's created you should push it to your origin using 'git push --tags`
 
-You can apply the  `--no-run` switch to `bump` to preview the git command that command.
+You can apply the `--no-run` switch to `bump` to preview the git command that command.
 
 ```sh
 $ gh tt semver bump --minor --no-run
@@ -47,7 +47,7 @@ To advance the build number on the current prerelease and populate it to github 
 gh tt semver note --from `gh tt semver` --to `gh tt semver bump --build` --file temp/release_note.md
 git push tags
 gh release create `gh tt semver --prerelease` --verify-tag --notes-file temp/release_note.md
-````
+```
 
 > [!TIP]
 > For our own convenience we have added two git aliases

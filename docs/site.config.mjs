@@ -22,6 +22,10 @@ export default {
       items: [{ autogenerate: { directory: "guide" } }],
     },
     {
+      label: "Commands",
+      items: [{ autogenerate: { directory: "commands" } }],
+    },
+    {
       label: "Development",
       items: [{ autogenerate: { directory: "development" } }],
     },

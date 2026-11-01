@@ -1,6 +1,8 @@
 ---
 title: "A new perspective"
 description: "Core concepts of the PR-less flow: issue branches, and delivering straight to main."
+sidebar:
+  order: 2
 ---
 
 ## Core concept: Issue branch
